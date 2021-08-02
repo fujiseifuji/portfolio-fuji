@@ -35,4 +35,4 @@ src/yarn-error.log
 src/yarn-debug.log*
 src/.yarn-integrity
 
-src/db/mysql/_data
+src/db/mysql_data
