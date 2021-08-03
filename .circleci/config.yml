@@ -1,47 +1,100 @@
 version: 2.1
-orbs:
-  ruby: circleci/ruby@1.1.2
-
 jobs:
-  build:
-    docker:
-      - image: circleci/ruby:2.7
+  rspec:
     working_directory: ~/portfolio-fuji/src
+    docker:
+      - image: circleci/ruby
     steps:
-      - checkout:
-          path: ~/portfolio-fuji
-      - ruby/install-deps
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Setup environment variable
+          command: |
+            echo "export COMPOSE_FILE=docker-compose.ci.yml" >> $BASH_ENV
+      - run:
+          name: Start containers and verify it is working
+          command: |
+            set -x
+            docker-compose up -d
+            docker exec portfolio-fuji curl -4 --retry 10 --retry-delay 3 --retry-connrefused http://localhost:3000
+      - run:
+          name: Setup database
+          command: |
+            docker-compose exec portfolio-fuji bash -c 'yes n | bundle exec rails g spree:install --migrate --seed --sample --auto_accept'
+      - run:
+          name: Run rspec
+          command: docker-compose exec portfolio-fuji rspec
 
-  test:
-    docker:
-      - image: circleci/ruby:2.7
-      - image: circleci/mysql:5.5
-        environment:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: app_test
-          MYSQL_USER: root
-    environment:
-      BUNDLE_JOBS: "3"
-      BUNDLE_RETRY: "3"
-      APP_DATABASE_HOST: "127.0.0.1"
-      RAILS_ENV: test
+  rubocop:
     working_directory: ~/portfolio-fuji/src
-    steps: 
-      - checkout: 
-          path: ~/portfolio-fuji
-      - ruby/install-deps
+    docker:
+      - image: circleci/ruby:2.5.1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gemfiles-{{ .Branch }}-
+            - gemfiles-master-
+      - run: bundle config --local path vendor/bundle
       - run:
-          name: Database setup
-          command: bundle exec rails db:migrate
+          name: bundle install
+          command: bundle check || bundle install --jobs=8 --clean
       - run:
-          name: test
-          command: bundle exec rake test
+          name: Run rubocop
+          command: bundle exec rubocop --parallel
+      - save_cache:
+          key: gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
 
+  heroku_deploy:
+    working_directory: ~/portfolio-fuji/src
+    docker:
+      - image: sue445/heroku-cli
+    steps:
+      - checkout
+      - build-tools/install-ci-tools
+      - jq/install
+      - run:
+          name: Identify who I am
+          command: echo 'export MY_EMAIL=`heroku auth:whoami | tail -n 1`' >> $BASH_ENV
+      - run:
+          name: Identify Heroku app names to destroy
+          command: echo 'export APP_NAMES_TO_REMOVE=`heroku apps --json | jq -r "map(select(.owner.email == "\"$MY_EMAIL\"" and (.name | contains(\"portfolio-fuji\")))) | sort_by(.updated_at) | reverse | .[5:] | .[].name"`' >> $BASH_ENV
+      - run:
+          name: Delete old apps if needed
+          command: for app_name in $APP_NAMES_TO_REMOVE; do heroku apps:destroy -a $app_name -c $app_name; done
+      - run:
+          name: Identify current branch name
+          command: echo 'export CURRENT_BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`' >> $BASH_ENV
+      - run:
+          name: Define Heroku app name to create
+          command: timestamp=`date +%Y%m%d%H%M%S` && echo "export HEROKU_APP_NAME=portfolio-fuji-$timestamp" >> $BASH_ENV
+      - run:
+          name: Create fresh Heroku app
+          command: heroku apps:create $HEROKU_APP_NAME --stack heroku-18 --addons=jawsdb:kitefin
+      - run:
+          name: Deploy
+          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git $CURRENT_BRANCH_NAME:master
+      - run:
+          name: Run post-deploy tasks
+          command: |
+            heroku config:set
+            heroku run bin/rails db:migrate
+            heroku run bin/rails runner "['products', 'taxons', 'option_values', 'product_option_types', 'product_properties', 'variants', 'assets'].each { |table| Spree::Sample.load_sample(table) }"
+            heroku run bin/rails runner db/seeds/potepan_suggest.rb
+
+orbs:
+  build-tools: circleci/build-tools@2.6.3
+  jq: circleci/jq@1.9.1
 workflows:
-  version: 2
-  build_and_test:
+  version: 2.1
+  build:
     jobs:
-      - build
-      - test:
+      - rspec
+      - rubocop
+      - heroku_deploy:
           requires:
-            - build
+            - rspec
+            - rubocop
