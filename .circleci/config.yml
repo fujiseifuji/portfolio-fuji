@@ -21,20 +21,17 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - gemfiles-{{ .Branch }}-
-            - gemfiles-master-
-      - run: bundle config --local path vendor/bundle
-      - run:
-          name: bundle install
-          command: bundle check || bundle install --jobs=8 --clean
-      - run:
-          name: Run rubocop
-          command: bundle exec rubocop --parallel
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
+      - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - run: yarn install
       - save_cache:
-          key: gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
-            - vendor/bundle
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: Rubocop
+          command: bundle exec rubocop
 
   rspec:
     docker:
@@ -84,14 +81,12 @@ jobs:
 
 workflows:
   version: 2
-  build_test_and_deploy:
+  build:
     jobs:
-      - build
       - rubocop
       - rspec
       - deploy:
           requires:
-            - build
             - rubocop
             - rspec
           filters:
