@@ -19,11 +19,13 @@ jobs:
       - image: circleci/ruby:2.7
     steps:
       - checkout
+          path: ~/portfolio-fuji
+      - ruby/install-deps
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
             - v1-dependencies-
-      - run: docker-compose run web bundle install
+      - run: bundle install
       - save_cache:
           paths:
             - ./vendor/bundle
