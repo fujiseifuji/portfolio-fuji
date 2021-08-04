@@ -18,24 +18,3 @@ LineLength:
 
 Rails:
   Enabled: true
-
-Style/AndOr:
-  EnforcedStyle: conditionals
-
-Style/AsciiComments:
-  Enabled: false
-
-Style/Documentation:
-  Enabled: false
-
-Style/NumericLiterals:
-  Enabled: false
-
-Style/ClassAndModuleChildren:
-  Enabled: false
-
-Bundler/OrderedGems:
-  Enabled: false
-
-Lint/ShadowedException:
-  Enabled: false
