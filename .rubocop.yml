@@ -1,5 +1,6 @@
 inherit_from:
   - .rubocop_airbnb.yml
+  - default.yml
 
 AllCops:
   Exclude:
