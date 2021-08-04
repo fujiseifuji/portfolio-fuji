@@ -23,7 +23,7 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
             - v1-dependencies-
-      - run: docker compose run web bundle install
+      - run: docker-compose run web bundle install
       - save_cache:
           paths:
             - ./vendor/bundle
