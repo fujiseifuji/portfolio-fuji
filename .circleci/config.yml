@@ -92,3 +92,6 @@ workflows:
             - build
             - rspec
             - rubocop
+          filters:
+            branches:
+              only: main
