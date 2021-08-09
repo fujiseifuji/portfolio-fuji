@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   ruby: circleci/ruby@1.1.2
+  heroku: circleci/heroku@1.2.3
 
 jobs:
   build:
@@ -12,7 +13,28 @@ jobs:
           path: ~/portfolio-fuji
       - ruby/install-deps
 
-  test:
+  rubocop:
+    working_directory: ~/portfolio-fuji/src
+    docker:
+      - image: circleci/ruby:2.7
+    steps:
+      - checkout:
+          path: ~/portfolio-fuji
+      - ruby/install-deps
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
+      - run: bundle install
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: Rubocop
+          command: bundle exec rubocop
+
+  rspec:
     docker:
       - image: circleci/ruby:2.7
       - image: circleci/mysql:5.5
@@ -26,22 +48,50 @@ jobs:
       APP_DATABASE_HOST: "127.0.0.1"
       RAILS_ENV: test
     working_directory: ~/portfolio-fuji/src
-    steps: 
-      - checkout: 
+    steps:
+      - checkout:
           path: ~/portfolio-fuji
       - ruby/install-deps
       - run:
           name: Database setup
           command: bundle exec rails db:migrate
       - run:
-          name: test
-          command: bundle exec rake test
+          name: Run rspec
+          command: bundle exec rspec
+
+  deploy:
+    docker:
+      - image: circleci/ruby:2.7
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.13
+      - heroku/install
+      - run:
+          name: heroku login
+          command: heroku container:login
+      - run:
+          name: push docker image
+          command: heroku container:push web -a $HEROKU_APP_NAME
+      - run:
+          name: release docker image
+          command: heroku container:release web -a $HEROKU_APP_NAME
+      - run:
+          name: database setup
+          command: heroku run bundle exec rake db:migrate RAILS_ENV=production -a $HEROKU_APP_NAME
 
 workflows:
   version: 2
-  build_and_test:
+  build_rubocop_rspec_and_deploy:
     jobs:
       - build
-      - test:
+      - rspec
+      - rubocop
+      - deploy:
           requires:
             - build
+            - rspec
+            - rubocop
+          filters:
+            branches:
+              only: main
