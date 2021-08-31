@@ -13,7 +13,7 @@ AllCops:
   TargetRubyVersion: 2.5.1
 
 LineLength:
-  Max: 150
+  Max: 180
 
 Rails:
   Enabled: true
