@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_31_073418) do
-
+ActiveRecord::Schema.define(version: 20_210_831_073_418) do
   create_table "photos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "image", null: false
     t.bigint "post_id", null: false

@@ -4,8 +4,11 @@ Rails.application.routes.draw do
   devise_for :users,
              controllers: { registrations: 'registrations' }
   root 'posts#index'
+  get  'pages/about' => 'pages#about'
+  get  'pages/terms' => 'pages#terms'
+  get  'pages/policy' => 'pages#policy'
   resources :users
-  resources :posts, only: %i(index new create show destroy) do
-    resources :photos, only: %i(create)
+  resources :posts, only: %i[index new create show destroy] do
+    resources :photos, only: %i[create]
   end
 end
