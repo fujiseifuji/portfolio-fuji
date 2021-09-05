@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_831_073_418) do
+ActiveRecord::Schema.define(version: 2021_09_04_083006) do
+
   create_table "photos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "image", null: false
     t.bigint "post_id", null: false
@@ -24,7 +25,16 @@ ActiveRecord::Schema.define(version: 20_210_831_073_418) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "title", default: "", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "spots", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "addless", null: false
+    t.float "latitude", null: false
+    t.float "longitude", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
