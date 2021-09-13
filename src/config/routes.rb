@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   get  'pages/terms' => 'pages#terms'
   get  'pages/policy' => 'pages#policy'
   resources :users
-  resources :posts, only: %i[index new create show destroy] do
-    resources :photos, only: %i[create]
+  resources :posts, only: %i(index new create show destroy) do
+    resources :photos, only: %i(create)
+    resources :likes, only: %i(create destroy)
   end
 end
