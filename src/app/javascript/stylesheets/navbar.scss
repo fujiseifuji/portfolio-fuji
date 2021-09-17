@@ -9,7 +9,6 @@
   }
   &__mainLogo {
     background-repeat: no-repeat;
-    background-image: url("~logo.png");
   }
   &-nav {
     & > li {
@@ -22,9 +21,6 @@
         width: 24px;
         background-size: 22px !important;
         background-repeat: no-repeat;
-      }
-      .profile-icon {
-        background-image: url("~parts3.png");
       }
     }
   }
