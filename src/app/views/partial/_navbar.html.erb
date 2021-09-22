@@ -11,7 +11,7 @@
           <li><%= link_to "ログイン", user_session_path %></li>
           <li><%= link_to "新規登録", new_user_registration_path %></li>
           <% if user_signed_in? %>
-            <%= link_to "", user_path(current_user), class: "nav-link commonNavIcon profile-icon" %>
+            <%= link_to "マイページ", user_path(current_user), class: "nav-link commonNavIcon profile-icon" %>
             <li><%= link_to "投稿", new_post_path, class: "btn btn-primary" %></li>
             <li><%= button_to "サインアウト", destroy_user_session_path, method: :delete %></li>
           <% end %>
