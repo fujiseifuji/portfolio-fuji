@@ -1,30 +1,39 @@
 .navbar {
-  background-color: #fff;
-  border-bottom: 1px solid rgba(0, 0, 0, .0975);
-  height: 77px;
-  &__brand {
-    height: 35px;
-    width: 176px;
-    background-size: 114px;
+  border-radius: 10px;
+  height: 60px;
+  margin: 40px 120px 20px 120px;
+  padding-left: 30px;
+  padding-right: 30px;
+  position: relative;
+  z-index: 2;
+  .navbar-brand {
+    font-size: 1.25rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
   }
-  &__mainLogo {
-    background-repeat: no-repeat;
+  .navbar-brand:hover {
+    color: #3FA7C9;
   }
-  &-nav {
-    & > li {
-      margin-left: 20px;
-      &:first-child {
-        margin-left: 0;
-      }
-      .commonNavIcon {
-        height: 24px;
-        width: 24px;
-        background-size: 22px !important;
-        background-repeat: no-repeat;
-      }
-      .profile-icon {
-        background-image: url("../images/parts3.png");
-      }
-    }
+}
+
+.navbar-nav {
+  border-radius: 0 0 10px 10px;
+  width: auto;
+  .nav-item {
+    display: block;
+    color: #ffffff;
+    list-style: none;
+    padding: 10px;
+    text-decoration: none;
   }
+}
+
+.nav-item:hover {
+  color: #3FA7C9;
+}
+
+.navbar-light .navbar-toggler {
+  border-color: rgba(0,0,0,0);
 }
