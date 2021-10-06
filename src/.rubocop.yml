@@ -10,7 +10,7 @@ AllCops:
     - "db/migrate/*.rb"
     - "bin/*"
   DisplayCopNames: true
-  TargetRubyVersion: 2.5.1
+  TargetRubyVersion: 2.7.4
 
 LineLength:
   Max: 180
@@ -43,7 +43,7 @@ Style/ClassAndModuleChildren:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
-  Max: 30
+  Max: 50
 
 Metrics/AbcSize:
   Enabled: true
@@ -54,3 +54,6 @@ Style/GuardClause:
 
 Naming/HeredocDelimiterNaming:
   Enabled: false
+
+GlobalVars:
+  AllowedVariables: [$CFLAGS, $LIBS]
