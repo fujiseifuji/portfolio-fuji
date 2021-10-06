@@ -8,7 +8,7 @@
 
 # Offense count: 1
 # Configuration parameters: AllowComments.
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Exclude:
     - 'bin/spring'
 
