@@ -19,12 +19,17 @@
   margin: 50px auto;
 }
 
-.logo-img {
-  background-repeat: no-repeat;
-  height: 56px;
-  width: 180px;
-  background-size: 160px;
-  background-size: 180px!important;
+.form-group {
+  padding-top: 20px;
+}
+
+.form-group label {
+  font-size: 0.75em;
+  padding: 5px;
+}
+
+.actions {
+  padding-top: 20px;
 }
 
 .form-control {

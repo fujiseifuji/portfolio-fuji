@@ -2,20 +2,22 @@
   <div class="card devise-card">
     <div class="form-wrap">
       <div class="form-group text-center">
-        <h2 class="logo-img mx-auto"></h2>
+        <h2 class="logo-img mx-auto">ログイン</h2>
       </div>
       <%= form_with scope: resource, as: resource_name, url: session_path(resource_name), local: true do |f| %>
         <%= devise_error_messages! %>
         <div class="form-group">
-          <%= f.email_field :email, autofocus: true, placeholder: "メールアドレス", class: "form-control" %>
+          <label for="user_email">テストユーザーの方は「example@example.com]をご利用ください。</label>
+          <%= f.email_field :email, autofocus: true, placeholder: "メールアドレス", class: "form-control", id: "user_email" %>
         </div>
 
         <div class="form-group">
-          <%= f.password_field :password, autocomplete: "off", placeholder: "パスワード", class: "form-control" %>
+          <label for="user_password">テストユーザーの方は「foobar]をご利用ください。</label>
+          <%= f.password_field :password, autocomplete: "off", placeholder: "パスワード", class: "form-control", id: "user_password" %>
         </div>
 
         <div class="actions">
-          <%= f.submit "サインインする", class: "btn btn-primary w-100" %>
+          <%= f.submit "ログインする", class: "btn btn-primary w-100" %>
         </div>
       <% end %>
 
