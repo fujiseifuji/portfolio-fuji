@@ -45,7 +45,7 @@ Style/ClassAndModuleChildren:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
-  Max: 50
+  Max: 200
 
 Metrics/AbcSize:
   Enabled: true

@@ -1,6 +1,9 @@
 @import '~bootstrap/scss/bootstrap';
 @import 'navbar';
 @import "common";
+@import "pages/about";
+@import "pages/policy";
+@import "pages/terms";
 @import "users/devise";
 @import "posts";
 @import "users/show";
