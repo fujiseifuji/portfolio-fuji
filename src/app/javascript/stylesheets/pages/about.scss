@@ -1,0 +1,25 @@
+.about {
+ text-align: center;
+ margin: 0 60px;
+}
+
+.about h1 {
+  font-family: sans-serif;
+}
+
+.about p {
+  line-height: 2.0;
+  font-weight: bold;
+}
+
+.basketball {
+  background-image: url("../images/parts10.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 300px;
+}
+
+.btn {
+  margin-bottom: 20px;
+}
