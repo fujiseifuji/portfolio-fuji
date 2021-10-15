@@ -18,8 +18,11 @@
             <% end %>
           <% end %>
         </div>
-        <%= link_to(post_path(post)) do %>
-          <%= image_tag post.photos.first.image.url(:medium), class: "card-img-top" %>
+        <% if @post.photos.present? %>
+        <% else %>
+          <%= link_to(post_path(post)) do %>
+            <%= image_tag post.photos.first.image.url(:medium), class: "card-img-top" %>
+          <% end %>
         <% end %>
         <div class="card-body">
           <div class="row parts">

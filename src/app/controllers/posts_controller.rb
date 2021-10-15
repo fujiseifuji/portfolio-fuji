@@ -8,17 +8,17 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    if @post.photos.present?
-      @post.save
-      redirect_to root_path
+    redirect_to root_path
+    if @post.save
       flash[:notice] = "投稿が保存されました"
     else
-      redirect_to root_path
       flash[:alert] = "投稿に失敗しました"
     end
   end
 
   def index
+    @post = Post.new
+    @post.photos.build
     @posts = Post.limit(10).includes(:photos, :user).order('created_at DESC')
   end
 
