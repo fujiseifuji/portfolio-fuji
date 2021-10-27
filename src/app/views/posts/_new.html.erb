@@ -11,12 +11,15 @@
               <i class="fas fa-search"></i>
               </button>
             </div>
-          </div>         
+          </div>
+          <%= form_with model: @post, class: "upload-images p-0 border-0" do |f| %>
           <div class="form-group">
             <label>住所</label>
-            <input id="address-info" class="form-control" type="textbox" placeholder="住所">
+            <div>
+              <%= f.fields_for :maps, @post.maps.build do |m| %>
+                <%= m.text_field :address, class: "form-control", placeholder: "住所" %>
+              <% end %>
             </div>
-            <%= form_with model: @post, class: "upload-images p-0 border-0" do |f| %>
           <div class="form-group mb-3">
             <div class="col-auto pr-0"></div>
             <label>テキスト</label>

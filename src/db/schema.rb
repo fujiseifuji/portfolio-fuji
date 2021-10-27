@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_14_031643) do
+ActiveRecord::Schema.define(version: 2021_10_19_095359) do
 
   create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "comment", null: false
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 2021_09_14_031643) do
     t.index ["post_id"], name: "index_likes_on_post_id"
     t.index ["user_id", "post_id"], name: "index_likes_on_user_id_and_post_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "maps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "address"
+    t.float "latitude"
+    t.float "longitude"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "post_id", null: false
+    t.index ["post_id"], name: "index_maps_on_post_id"
   end
 
   create_table "photos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -66,6 +76,7 @@ ActiveRecord::Schema.define(version: 2021_09_14_031643) do
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
+  add_foreign_key "maps", "posts"
   add_foreign_key "photos", "posts"
   add_foreign_key "posts", "users"
 end

@@ -32,23 +32,38 @@
         map: map
       });
 
-      google.maps.event.addListener(map, 'click', function(e) {
-        var marker = new google.maps.Marker({
-        position: e.latLng,
-        map: this,
-        animation: google.maps.Animation.DROP
-      });
- 
-      var infoWindow = new google.maps.InfoWindow({
-        content: e.latLng.toString()
-      });
- 
-      google.maps.event.addListener(marker, 'click', function() {
-        infoWindow.open(map, marker);
-      });
- 
-      google.maps.event.addListener(infoWindow, 'closeclick', function() {
-        marker.setMap(null);
+    var geocoder = new google.maps.Geocoder();  
+    
+    map.addListener('click', function(e){
+      geocoder.geocode({location: e.latLng}, function(results, status){
+        if(status === 'OK' && results[0]) {
+          
+          var marker = new google.maps.Marker({
+            position: e.latLng,
+            map: map,
+            title: results[0].formatted_address,
+            animation: google.maps.Animation.DROP
+          });
+          
+          var infoWindow = new google.maps.InfoWindow({
+            content:  results[0].formatted_address,
+            pixelOffset: new google.maps.Size(0, 5)
+          });
+  
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          });
+          
+          infoWindow.addListener('closeclick', function(){
+            marker.setMap(null);
+          });
+        }else if(status === 'ZERO_RESULTS') {
+          alert('不明なアドレスです： ' + status);
+          return;
+        }else{
+          alert('失敗しました： ' + status);
+          return;
+        }
       });
     });
   }, function() {
