@@ -24,7 +24,9 @@
                 <%= image_tag post.photos.first.image.url(:medium) if post.photos.present? %>
             <% end %>
             <div class="card-body">
-                <span><strong><%= post.user.name %></strong></span>
+              <%= link_to(post_path(post)) do %>
+                <span><%= post.map&.address %></span>
+              <% end %>
                 <span><%= post.caption %></span>
                 <%= link_to time_ago_in_words(post.created_at).upcase + "前", post_path(post), class: "post-time no-text-decoration" %>
                 <div id="comment-post-<%= post.id.to_s %>">

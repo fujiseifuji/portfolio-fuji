@@ -16,7 +16,7 @@
           <div class="form-group">
             <label>住所</label>
             <div>
-              <%= f.fields_for :maps, @post.maps.build do |m| %>
+              <%= f.fields_for :map, @post.build_map do |m| %>
                 <%= m.text_field :address, class: "form-control", placeholder: "住所" %>
               <% end %>
             </div>

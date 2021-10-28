@@ -1,8 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
 
-  def new
-  end
+  def new; end
 
   def create
     @post = Post.new(post_params)
@@ -17,8 +16,8 @@ class PostsController < ApplicationController
   def index
     @post = Post.new
     @post.photos.build
-    @post.maps.build
-    @posts = Post.limit(10).includes(:maps, :photos, :user).order('created_at DESC')
+    @post.build_map
+    @posts = Post.limit(10).includes(:map, :photos, :user).order('created_at DESC')
   end
 
   def show
@@ -38,7 +37,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:caption, maps_attributes: [:address, :latitude, :longitude], photos_attributes: [:image]).merge(user_id: current_user.id)
+    params.require(:post).permit(:caption, map_attributes: %i[address latitude longitude], photos_attributes: [:image]).merge(user_id: current_user.id)
   end
 
   def set_post
