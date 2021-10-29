@@ -32,7 +32,37 @@
         map: map
       });
 
-    var geocoder = new google.maps.Geocoder();  
+      infoWindow = new google.maps.InfoWindow({
+        content: "現在地"
+      });
+
+      marker.addListener('click', function(){
+        infoWindow.open(map, marker);
+      });
+    
+    <% @posts.each do |post| %>
+      (function(){
+        var contentString = "<%= post.map&.address %>";
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
+        var marker = new google.maps.Marker({
+            position:{lat: <%= post.map&.latitude %>, lng: <%= post.map&.longitude %>},
+            map: map,
+            title: contentString,
+            icon: {
+        url: ' https://maps.google.com/mapfiles/ms/icons/green-dot.png', 
+        scaledSize: new google.maps.Size(40, 40) 
+        }
+        });
+        marker.addListener('click', function() {
+            infowindow.open(map, marker);
+        });
+      })();
+    <% end %>
+
+    var geocoder = new google.maps.Geocoder();
     
     map.addListener('click', function(e){
       geocoder.geocode({location: e.latLng}, function(results, status){
@@ -81,6 +111,19 @@
           map: map,
           position: results[0].geometry.location
         });
+
+        let infoWindow = new google.maps.InfoWindow({
+            content:  inputAddress,
+            pixelOffset: new google.maps.Size(0, 5)
+          });
+  
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          });
+          
+          infoWindow.addListener('closeclick', function(){
+            marker.setMap(null);
+          });
 
         let address = document.getElementById('address');
         address.setAttribute("value", inputAddress);
