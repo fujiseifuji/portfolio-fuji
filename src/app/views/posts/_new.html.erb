@@ -17,7 +17,9 @@
             <label>住所</label>
             <div>
               <%= f.fields_for :map, @post.build_map do |m| %>
-                <%= m.text_field :address, class: "form-control", placeholder: "住所" %>
+                <%= m.text_field :address, class: "form-control", placeholder: "住所", name: "post[map_attributes][address]", id: "hidden_address" %>
+                <%= m.hidden_field :latitude %>
+                <%= m.hidden_field :longitude %>
               <% end %>
             </div>
           <div class="form-group mb-3">

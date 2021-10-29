@@ -37,14 +37,14 @@
     map.addListener('click', function(e){
       geocoder.geocode({location: e.latLng}, function(results, status){
         if(status === 'OK' && results[0]) {
-          
+
           var marker = new google.maps.Marker({
             position: e.latLng,
             map: map,
             title: results[0].formatted_address,
             animation: google.maps.Animation.DROP
           });
-          
+
           var infoWindow = new google.maps.InfoWindow({
             content:  results[0].formatted_address,
             pixelOffset: new google.maps.Size(0, 5)
@@ -81,6 +81,13 @@
           map: map,
           position: results[0].geometry.location
         });
+
+        let address = document.getElementById('address');
+        address.setAttribute("value", inputAddress);
+
+        let hidden_address = document.getElementById('hidden_address');
+        hidden_address.setAttribute("value", inputAddress);
+
       } else {
           alert('該当する結果がありませんでした：' + status);
       }
