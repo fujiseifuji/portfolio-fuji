@@ -17,9 +17,8 @@ class PostsController < ApplicationController
     @post = Post.new
     @post.photos.build
     @post.build_map
-    @posts = Post.limit(10).includes(:map, :photos, :user).order('created_at DESC')
     @q = Post.ransack(params[:q])
-    @posts = @q.result(distinct: true)
+    @posts = @q.result(distinct: true).limit(10).includes(:map, :photos, :user).order('created_at DESC')
   end
 
   def show
