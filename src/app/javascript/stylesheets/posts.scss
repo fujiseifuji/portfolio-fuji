@@ -64,6 +64,11 @@
   display: flex;
 }
 
+.card-header {
+  background-color: #ffffff;
+  border-bottom: none;
+}
+
 .card-right-comment {
   padding-bottom: 10px;
   border-bottom: 1px solid #e6e6e6;
@@ -82,14 +87,19 @@
   line-height: 0;
 }
 
+.delete-post-icon-outline {
+  border: 1px solid #ffffff;
+  background-color: #ffffff;
+}
+
 .delete-post-icon {
   background-image: url("../images/parts9.png");
   background-repeat: no-repeat;
-  width: 20px;
-  height: 20px;
-  background-size: 20px !important;
+  width: 17px;
+  height: 17px;
+  background-size: 17px !important;
   color: #262626;
-  font-size: 20px;
+  font-size: 17px;
 }
 
 .delete-comment {
@@ -102,8 +112,13 @@
   background-size: 11px !important;
 }
 
+.card {
+  border-top: none;
+}
+
 .card-body {
   font-size: 0.75em;
+  padding-top: 5px;
 }
 
 .search-form {
