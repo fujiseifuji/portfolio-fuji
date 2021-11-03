@@ -8,5 +8,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
+    @post = Post.new
+    @post.photos.build
+    @post.build_map
+    @posts = @user.posts.limit(10).includes(:map, :photos, :user).order('created_at DESC')
   end
 end
