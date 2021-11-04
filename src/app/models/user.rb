@@ -14,7 +14,6 @@ class User < ApplicationRecord
   validates :profile_photo, presence: true
 
   mount_uploader :profile_photo, ImageUploader
-  
 
   def liked_by?(post_id)
     likes.where(post_id: post_id).exists?

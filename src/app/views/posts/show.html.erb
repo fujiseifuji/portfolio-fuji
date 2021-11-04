@@ -1,8 +1,47 @@
+<div class="show-address">
+  <span><%= @post.map&.address %></span>
+</div>
+<style>
+#map {
+  height: 50vh;
+  width: 60vw;
+  margin: 0 auto;
+}
+</style>
+<div id="map"></div>
+<script>
+function initMap() {
+    var test = {lat: <%= @post.map&.latitude %>, lng: <%= @post.map&.longitude %>};
+    var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15, 
+              center: test
+              });
+    var transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
+
+    var contentString = '<%= @post.map&.address %>';
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
+    var marker = new google.maps.Marker({
+                  position:test,
+                  map: map,
+                  title: contentString
+                 });
+
+     marker.addListener('click', function() {
+       infowindow.open(map, marker);
+     });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=AIzaSyBbHAcMVJ8WZdsUlEtnNPhzlhSyp06YKHE&callback=initMap" async defer></script>
+
 <div class="col-md-10 col-md-offset-1 mx-auto postShow-wrap">
   <div class="row post-wrap">
     <div class="col-md-8">
       <div class="card-left">
-      <%= image_tag @post.photos.first.image.url(:medium) if @post.photos.present? %>
+      <%= image_tag @post.photos.first.image.url(:medium), class: "card-img-top" if @post.photos.present?  %>
       </div>
     </div>
     <div class="col-md-4">
@@ -10,6 +49,7 @@
         <div class="card-right-comment">
           <div class="card-right-name">
             <%= link_to user_path(@post.user), class: "no-text-decoration" do %>
+            <%= image_tag @post.user.profile_photo_url, class: "post-profile-icon" %>
             <% end %>
             <%= link_to user_path(@post.user), class: "black-color no-text-decoration post-user-name",
               title: @post.user.name do %>
@@ -17,7 +57,7 @@
             <% end %>
 
             <% if @post.user_id == current_user.id %>
-              <%= link_to post_path(@post), method: :delete, class: "ml-auto mx-0 my-auto" do %>
+              <%= link_to post_path(@post), method: :delete, class: "delete-post-icon-outline ml-auto mx-0 my-auto" do %>
                 <div class="delete-post-icon">
                 </div>
               <% end %>
@@ -57,7 +97,7 @@
           <%= form_with model: [@post, Comment.new],  class: "w-100" do |f| %>
             <%= f.hidden_field :user_id, value: current_user.id %>
             <%= f.hidden_field :post_id, value: @post.id %>
-            <%= f.text_field :comment, class: "form-control comment-input", placeholder: "コメント ...", autocomplete: :off %>
+            <%= f.text_field :comment, class: "form-control comment-input border-0", placeholder: "コメント ...", autocomplete: :off %>
           <% end %>
         </div>
       </div>
