@@ -13,4 +13,11 @@ class UsersController < ApplicationController
     @post.build_map
     @posts = @user.posts.limit(10).includes(:map, :photos, :user).order('created_at DESC')
   end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    flash[:notice] = 'ユーザーを削除しました。'
+    redirect_to :root
+  end
 end
