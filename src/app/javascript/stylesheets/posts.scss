@@ -102,6 +102,16 @@
   font-size: 17px;
 }
 
+.edit-post-icon {
+  background-image: url("../images/edit.jpg");
+  background-repeat: no-repeat;
+  width: 17px;
+  height: 17px;
+  background-size: 17px !important;
+  color: #262626;
+  font-size: 17px;
+}
+
 .delete-comment {
   background-image: url("../images/parts8.png");
   background-repeat: no-repeat;
@@ -119,7 +129,11 @@
 .card-body {
   font-size: 0.75em;
   padding-top: 5px;
-  padding-bottom: 50px;
+}
+
+.post-body {
+  font-size: 0.75em;
+  padding: 5px 30px 50px 30px;
 }
 
 .search-form {

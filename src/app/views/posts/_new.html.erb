@@ -2,7 +2,7 @@
   <div class="d-flex flex-column align-items-center mt-3 w-100">
     <div class="col-xl-7 col-lg-8 col-md-10 col-sm-11 post-card">
       <div class="card">
-        <div class="card-body">
+        <div class="post-body">
           <div class="form-group">
             <label>レビュー場所（Google Mapで検索)</label>
             <div class="search-form">
@@ -14,7 +14,7 @@
           </div>
           <%= form_with model: @post, class: "upload-images p-0 border-0" do |f| %>
           <div class="form-group">
-            <label>住所</label>
+            <%= f.label :address, "住所" %>
             <div>
               <%= f.fields_for :map, @post.build_map do |m| %>
                 <%= m.text_field :address, class: "form-control", placeholder: "住所", name: "post[map_attributes][address]", id: "hidden_address" %>
@@ -24,7 +24,7 @@
             </div>
           <div class="form-group mb-3">
             <div class="col-auto pr-0"></div>
-            <label>テキスト</label>
+            <%= f.label :caption, "テキスト" %>
             <div>
               <%= f.text_field :caption, class: "form-control", placeholder: "コメントを入力する" %>
             </div>
