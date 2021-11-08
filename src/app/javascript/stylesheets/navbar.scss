@@ -1,0 +1,39 @@
+.navbar {
+  border-radius: 10px;
+  height: 60px;
+  margin: 40px 120px 20px 120px;
+  padding-left: 30px;
+  padding-right: 30px;
+  position: relative;
+  z-index: 2;
+  .navbar-brand {
+    font-size: 1.25rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+  }
+  .navbar-brand:hover {
+    color: #3FA7C9;
+  }
+}
+
+.navbar-nav {
+  border-radius: 0 0 10px 10px;
+  width: auto;
+  .nav-item {
+    display: block;
+    color: #ffffff;
+    list-style: none;
+    padding: 10px;
+    text-decoration: none;
+  }
+}
+
+.nav-item:hover {
+  color: #3FA7C9;
+}
+
+.navbar-light .navbar-toggler {
+  border-color: rgba(0,0,0,0);
+}

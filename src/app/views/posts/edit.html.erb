@@ -1,0 +1,151 @@
+<% provide(:title, "投稿編集") %>
+<div class="show-address"><span><%= @post.map&.address %></span></div>
+<style>
+#map {
+  height: 50vh;
+  width: 60vw;
+  margin: 0 auto;
+}
+</style>
+<div id="map"></div>
+<script>
+let map
+let geocoder
+function initMap() {
+    var test = {lat: <%= @post.map&.latitude %>, lng: <%= @post.map&.longitude %>};
+    var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15, 
+              center: test
+              });
+    var transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
+
+    var contentString = '<%= @post.map&.address %>';
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
+    var marker = new google.maps.Marker({
+                  position:test,
+                  map: map,
+                  title: contentString
+                 });
+
+     marker.addListener('click', function() {
+       infowindow.open(map, marker);
+     });
+
+    var geocoder = new google.maps.Geocoder();
+    
+    map.addListener('click', function(e){
+      geocoder.geocode({location: e.latLng}, function(results, status){
+        if(status === 'OK' && results[0]) {
+
+          var marker = new google.maps.Marker({
+            position: e.latLng,
+            map: map,
+            title: results[0].formatted_address,
+            animation: google.maps.Animation.DROP
+          });
+
+          var infoWindow = new google.maps.InfoWindow({
+            content:  results[0].formatted_address,
+            pixelOffset: new google.maps.Size(0, 5)
+          });
+  
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          });
+          
+          infoWindow.addListener('closeclick', function(){
+            marker.setMap(null);
+          });
+        }else if(status === 'ZERO_RESULTS') {
+          alert('不明なアドレスです： ' + status);
+          return;
+        }else{
+          alert('失敗しました： ' + status);
+          return;
+        }
+      });
+    });
+  }
+
+function codeAddress(){
+  let inputAddress = document.getElementById('address').value;
+
+  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+    if (status == 'OK') {
+      map.setCenter(results[0].geometry.location);
+      let marker = new google.maps.Marker({
+      map: map,
+      position: results[0].geometry.location
+      });
+
+        let infoWindow = new google.maps.InfoWindow({
+            content:  inputAddress,
+            pixelOffset: new google.maps.Size(0, 5)
+          });
+  
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          });
+          
+          infoWindow.addListener('closeclick', function(){
+            marker.setMap(null);
+          });
+
+        let address = document.getElementById('address');
+        address.setAttribute("value", inputAddress);
+
+        let hidden_address = document.getElementById('hidden_address');
+        hidden_address.setAttribute("value", inputAddress);
+    } else {
+        alert('該当する結果がありませんでした：' + status);
+      }
+  });   
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>
+
+<div class="d-flex flex-column align-items-center mt-3 w-100">
+  <div class="col-xl-7 col-lg-8 col-md-10 col-sm-11 post-card">
+    <div class="card">
+      <div class="post-body">
+        <div class="form-group">
+          <label>レビュー場所（Google Mapで検索)</label>
+          <div class="search-form">
+            <input id="address" class="form-control" type="textbox" placeholder="スポットを入力">
+            <button type="button" class="search-button" value="検索" onclick="codeAddress()">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <%= form_with model: @post, class: "upload-images p-0 border-0" do |f| %>
+          <div class="form-group">
+            <%= f.label :address, "住所" %>
+            <div>
+              <%= f.fields_for :map, @post.build_map do |m| %>
+                <%= m.text_field :address, class: "form-control", placeholder: "住所", name: "post[map_attributes][address]", id: "hidden_address" %>
+              <% end %>
+            </div>
+          <div class="form-group mb-3">
+            <div class="col-auto pr-0"></div>
+            <%= f.label :caption, "テキスト" %>
+            <div>
+              <%= f.text_field :caption, class: "form-control", placeholder: "コメントを入力する" %>
+            </div>
+          </div>
+          <div class="mb-3">
+            <%= f.fields_for :photos do |i| %>
+              <%= i.file_field :image %>
+            <% end %>
+          </div>
+            <%= f.submit "編集する", class: "btn btn-primary" %>
+        <% end %>
+            <%= render 'partial/modal' %>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+.about {
+ text-align: center;
+ margin: 0 60px;
+}
+
+.about h1 {
+  font-family: sans-serif;
+}
+
+.about p {
+  line-height: 2.0;
+  font-weight: bold;
+}
+
+.basketball {
+  background-image: url("../images/parts10.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 300px;
+  border-radius: 10px;
+}
+
+.about-button {
+  margin-bottom: 30px;
+  padding: 12px;
+  background: #00B4CC;
+  border: 1px solid #00B4CC;
+  font-size: 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  &:hover {
+    background: #00B4CC;
+    border: 1px solid #00B4CC;
+  }
+}

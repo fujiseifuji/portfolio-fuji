@@ -1,0 +1,142 @@
+<div id='map'></div>
+<style>
+#map {
+  height: 60vh;
+  width: 90%;
+  margin: 0 auto;
+}
+</style>
+<script>
+  let map
+  let geocoder
+
+  function initMap(){
+    geocoder = new google.maps.Geocoder()
+    if(!navigator.geolocation) {
+      alert('Geolocation APIに対応していません');
+      return false;
+    }
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+      latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: latLng,
+        zoom: 12,
+      });
+
+      marker = new google.maps.Marker({
+        position:  latLng,
+        map: map,
+        icon: {
+        url: 'https://maps.google.com/mapfiles/ms/micons/man.png', 
+        scaledSize: new google.maps.Size(40, 40) 
+        }
+      });
+
+      infoWindow = new google.maps.InfoWindow({
+        content: "現在地"
+      });
+
+      marker.addListener('click', function(){
+        infoWindow.open(map, marker);
+      });
+    
+    <% @posts.each do |post| %>
+      (function(){
+        var contentString = "<%= post.map&.address %>";
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
+        var marker = new google.maps.Marker({
+            position:{lat: <%= post.map&.latitude %>, lng: <%= post.map&.longitude %>},
+            map: map,
+            title: contentString,
+            icon: {
+        url: ' https://maps.google.com/mapfiles/ms/icons/green-dot.png', 
+        scaledSize: new google.maps.Size(40, 40) 
+        }
+        });
+        marker.addListener('click', function() {
+            infowindow.open(map, marker);
+        });
+      })();
+    <% end %>
+
+    var geocoder = new google.maps.Geocoder();
+    
+    map.addListener('click', function(e){
+      geocoder.geocode({location: e.latLng}, function(results, status){
+        if(status === 'OK' && results[0]) {
+
+          var marker = new google.maps.Marker({
+            position: e.latLng,
+            map: map,
+            title: results[0].formatted_address,
+            animation: google.maps.Animation.DROP
+          });
+
+          var infoWindow = new google.maps.InfoWindow({
+            content:  results[0].formatted_address,
+            pixelOffset: new google.maps.Size(0, 5)
+          });
+  
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          });
+          
+          infoWindow.addListener('closeclick', function(){
+            marker.setMap(null);
+          });
+        }else if(status === 'ZERO_RESULTS') {
+          alert('不明なアドレスです： ' + status);
+          return;
+        }else{
+          alert('失敗しました： ' + status);
+          return;
+        }
+      });
+    });
+  }, function() {
+        alert('位置情報取得に失敗しました');
+      });
+  }
+
+  function codeAddress(){
+    let inputAddress = document.getElementById('address').value;
+
+    geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+      if (status == 'OK') {
+        map.setCenter(results[0].geometry.location);
+        let marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+        });
+
+        let infoWindow = new google.maps.InfoWindow({
+            content:  inputAddress,
+            pixelOffset: new google.maps.Size(0, 5)
+          });
+  
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          });
+          
+          infoWindow.addListener('closeclick', function(){
+            marker.setMap(null);
+          });
+
+        let address = document.getElementById('address');
+        address.setAttribute("value", inputAddress);
+
+        let hidden_address = document.getElementById('hidden_address');
+        hidden_address.setAttribute("value", inputAddress);
+
+      } else {
+          alert('該当する結果がありませんでした：' + status);
+      }
+    });   
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>

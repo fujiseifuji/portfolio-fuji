@@ -1,0 +1,37 @@
+.footer {
+  height: 10px;
+  border-top: solid;
+  border-color: #eeeeee;
+  margin: 20px 120px 0 120px;
+}
+
+.wrapper-item {
+  display: flex;
+  justify-content: flex-end;
+  list-style: none;
+}
+
+.item:hover {
+  color: #888888;
+}
+
+.item {
+  font-size: 0.75em;
+  font-family: sans-serif;
+  color: #000000;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.navbar {
+  color: #ffffff;
+  border-radius: 10px;
+  height: 60px;
+  margin: 40px 120px 20px 120px;
+  padding-left: 30px;
+  padding-right: 30px; 
+}
+
+footer p {
+  padding-top: 10px;
+}

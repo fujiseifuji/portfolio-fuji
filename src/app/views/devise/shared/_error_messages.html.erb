@@ -1,0 +1,12 @@
+<% if resource.errors.any? %>
+  <div id="error_explanation", class="error_explanation">
+    <h2>
+      <%= I18n.t %>
+    </h2>
+    <ul>
+      <% resource.errors.full_messages.each do |message| %>
+        <li class="devise-error-messages"><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

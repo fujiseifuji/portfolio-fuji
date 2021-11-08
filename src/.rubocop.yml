@@ -1,4 +1,6 @@
 inherit_from: .rubocop_todo.yml
+require:
+  - rubocop-rails
 
 AllCops:
   Exclude:
@@ -10,10 +12,10 @@ AllCops:
     - "db/migrate/*.rb"
     - "bin/*"
   DisplayCopNames: true
-  TargetRubyVersion: 2.5.1
+  TargetRubyVersion: 2.7.4
 
 LineLength:
-  Max: 150
+  Max: 180
 
 Rails:
   Enabled: true
@@ -43,6 +45,7 @@ Style/ClassAndModuleChildren:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+  Max: 200
 
 Metrics/AbcSize:
   Enabled: true
@@ -53,3 +56,6 @@ Style/GuardClause:
 
 Naming/HeredocDelimiterNaming:
   Enabled: false
+
+GlobalVars:
+  AllowedVariables: [$CFLAGS, $LIBS]
