@@ -1,8 +1,5 @@
 <% provide(:title, "投稿編集") %>
-
-<div class="show-address">
-  <span><%= @post.map&.address %></span>
-</div>
+<div class="show-address"><span><%= @post.map&.address %></span></div>
 <style>
 #map {
   height: 50vh;
@@ -38,7 +35,7 @@ function initMap() {
        infowindow.open(map, marker);
      });
 
-     var geocoder = new google.maps.Geocoder();
+    var geocoder = new google.maps.Geocoder();
     
     map.addListener('click', function(e){
       geocoder.geocode({location: e.latLng}, function(results, status){
@@ -74,16 +71,16 @@ function initMap() {
     });
   }
 
-    function codeAddress(){
-    let inputAddress = document.getElementById('address').value;
+function codeAddress(){
+  let inputAddress = document.getElementById('address').value;
 
-    geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-      if (status == 'OK') {
-        map.setCenter(results[0].geometry.location);
-        let marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-        });
+  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+    if (status == 'OK') {
+      map.setCenter(results[0].geometry.location);
+      let marker = new google.maps.Marker({
+      map: map,
+      position: results[0].geometry.location
+      });
 
         let infoWindow = new google.maps.InfoWindow({
             content:  inputAddress,
@@ -103,29 +100,28 @@ function initMap() {
 
         let hidden_address = document.getElementById('hidden_address');
         hidden_address.setAttribute("value", inputAddress);
-
-      } else {
-          alert('該当する結果がありませんでした：' + status);
+    } else {
+        alert('該当する結果がありませんでした：' + status);
       }
-    });   
-  }
+  });   
+}
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>
 
-  <div class="d-flex flex-column align-items-center mt-3 w-100">
-    <div class="col-xl-7 col-lg-8 col-md-10 col-sm-11 post-card">
-      <div class="card">
-        <div class="post-body">
-          <div class="form-group">
-            <label>レビュー場所（Google Mapで検索)</label>
-            <div class="search-form">
-              <input id="address" class="form-control" type="textbox" placeholder="スポットを入力">
-              <button type="button" class="search-button" value="検索" onclick="codeAddress()">
+<div class="d-flex flex-column align-items-center mt-3 w-100">
+  <div class="col-xl-7 col-lg-8 col-md-10 col-sm-11 post-card">
+    <div class="card">
+      <div class="post-body">
+        <div class="form-group">
+          <label>レビュー場所（Google Mapで検索)</label>
+          <div class="search-form">
+            <input id="address" class="form-control" type="textbox" placeholder="スポットを入力">
+            <button type="button" class="search-button" value="検索" onclick="codeAddress()">
               <i class="fas fa-search"></i>
-              </button>
-            </div>
+            </button>
           </div>
-          <%= form_with model: @post, class: "upload-images p-0 border-0" do |f| %>
+        </div>
+        <%= form_with model: @post, class: "upload-images p-0 border-0" do |f| %>
           <div class="form-group">
             <%= f.label :address, "住所" %>
             <div>
@@ -146,10 +142,10 @@ function initMap() {
             <% end %>
           </div>
             <%= f.submit "編集する", class: "btn btn-primary" %>
-          <% end %>
+        <% end %>
             <%= render 'partial/modal' %>
           </div>
-        </div>
       </div>
     </div>
   </div>
+</div>

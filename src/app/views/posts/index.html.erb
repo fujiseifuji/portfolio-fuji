@@ -1,7 +1,5 @@
 <% provide(:title, "投稿一覧") %>
-
 <%= render 'partial/map' %>
-
 <div class="row">
   <%= render 'posts/new' %>
   <div class="feed col-md-7 mt-3">
@@ -9,77 +7,16 @@
       <%= search_form_for @q do |f| %>
         <%= f.label :user_name_or_map_address_or_caption, "最近の投稿", class: "font-large" %>
     </div>
-        <div class="col-xl-11 col-lg-11 col-md-12 recent-postsform">
-          <%= f.search_field :user_name_or_map_address_or_caption_cont, class: "form-control", placeholder: "投稿を検索" %>
-          <%= f.button type: "submit", class: "search-button" do %>
-            <i class='fas fa-search'></i>
-          <% end %>
-        </div>
-        <% if @posts.count == 0 %>
-          <p>投稿が見つかりません</p>
-        <% end %>
+    <div class="col-xl-11 col-lg-11 col-md-12 recent-postsform">
+      <%= f.search_field :user_name_or_map_address_or_caption_cont, class: "form-control", placeholder: "投稿を検索" %>
+      <%= f.button type: "submit", class: "search-button" do %>
+        <i class='fas fa-search'></i>
       <% end %>
-      
-    <% @posts.each do |post| %>
-      <div class="col-xl-11 col-lg-11 col-md-12">
-        <div class="card-wrap">
-          <div class="card">
-            <div class="card-header align-items-center d-flex">
-              <%= link_to user_path(post.user), class: "no-text-decoration" do %>
-              <%= image_tag post.user.profile_photo_url, class: "post-profile-icon" %>
-              <% end %>
-              <%= link_to user_path(post.user), class: "black-color no-text-decoration",
-                title: post.user.name do %>
-                <strong><%= post.user.name %></strong>
-              <% end %>
-              <% if post.user_id == current_user.id %>
-                <%= link_to edit_post_path(post), method: :get, class: "delete-post-icon-outline ml-auto mx-0 my-auto" do %>
-                  <div class="edit-post-icon"></div>
-                <% end %>            
-                <%= link_to post_path(post), method: :delete, class: "delete-post-icon-outline ml-auto mx-0 my-auto" do %>
-                  <div class="delete-post-icon"></div>
-                <% end %>
-              <% end %>
-            </div>
-            <%= link_to(post_path(post)) do %>
-                <%= image_tag post.photos.first.image.url(:small), class: "post-image" if post.photos.present? %>
-            <% end %>
-            <div class="card-body">
-              <%= link_to(post_path(post)) do %>
-                <span><%= post.map&.address %></span>
-              <% end %>
-              <div class="mr-2">
-                <span><%= post.caption %></span>
-              </div>
-                <div id="comment-post-<%= post.id.to_s %>">
-                  <%= render 'comment_list', { post: post } %>
-                </div>
-
-                  <div class="parts">
-                    <div id="like-icon-post-<%= post.id.to_s %>">   
-                      <% if post.liked_by(current_user).present? %>
-                        <%= link_to "いいねを取り消す", post_like_path(post.id, post.liked_by(current_user)), method: :DELETE, remote: true, class: "loved hide-text" %>
-                      <% else %>
-                        <%= link_to "いいね", post_likes_path(post), method: :POST, remote: true, class: "love hide-text" %>
-                      <% end %>
-                    </div>                  
-                    <div id="like-text-post-<%= post.id.to_s %>">
-                      <%= post.likes.count %>
-                    </div>
-                    <%= link_to time_ago_in_words(post.created_at).upcase + "前", post_path(post), class: "post-time no-text-decoration" %>
-                  </div>
-                <hr>
-                <div class="row actions" id="comment-form-post-<%= post.id.to_s %>">
-                  <%= form_with model: [post, Comment.new], class: "w-100", local: false do |f| %>
-                    <%= f.hidden_field :user_id, value: current_user.id %>
-                    <%= f.hidden_field :post_id, value: post.id %>
-                    <%= f.text_field :comment, class: "form-control comment-input border-0", placeholder: "コメント ...", autocomplete: :off %>
-                  <% end %>
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
+    <% if @posts.count == 0 %>
+      <p>投稿が見つかりません</p>
     <% end %>
+      <% end %>
+    <%= render 'posts/post_list' %>
   </div>
 </div>

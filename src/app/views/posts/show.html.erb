@@ -1,8 +1,5 @@
 <% provide(:title, "投稿詳細") %>
-
-<div class="show-address">
-  <span><%= @post.map&.address %></span>
-</div>
+<div class="show-address"><span><%= @post.map&.address %></span></div>
 <style>
 #map {
   height: 50vh;
@@ -57,7 +54,6 @@ function initMap() {
               title: @post.user.name do %>
               <strong><%= @post.user.name %></strong>
             <% end %>
-
             <% if @post.user_id == current_user.id %>
               <%= link_to edit_post_path(@post), method: :get, class: "delete-post-icon-outline ml-auto mx-0 my-auto" do %>
                 <div class="edit-post-icon"></div>
@@ -68,9 +64,7 @@ function initMap() {
             <% end %>
           </div>
           <div class="m-2">
-            <strong>
-              <%= @post.caption %>
-            </strong>
+            <strong><%= @post.caption %></strong>
           </div>
           <div class="comment-post-id">
             <div class="m-2">
