@@ -35,7 +35,7 @@ function initMap() {
      });
   }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=AIzaSyBbHAcMVJ8WZdsUlEtnNPhzlhSyp06YKHE&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>
 
 <div class="col-md-10 col-md-offset-1 mx-auto postShow-wrap">
   <div class="row post-wrap">

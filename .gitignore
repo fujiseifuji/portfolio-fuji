@@ -38,3 +38,5 @@ src/.yarn-integrity
 src/db/mysql/_data
 
 src/public/uploads/
+
+src/.env
