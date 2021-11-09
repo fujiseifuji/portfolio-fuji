@@ -2,7 +2,7 @@
 <%= render 'partial/map' %>
 <div class="row">
   <%= render 'posts/new' %>
-  <div class="feed col-md-7 mt-3">
+  <div class="feed col-md-7 mt-3 mx-auto">
     <div class="recent-posts">
       <%= search_form_for @q do |f| %>
         <%= f.label :user_name_or_map_address_or_caption, "最近の投稿", class: "font-large" %>

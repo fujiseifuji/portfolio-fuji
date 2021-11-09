@@ -1,5 +1,6 @@
 .footer {
   height: 10px;
+  width: 100%;
   border-top: solid;
   border-color: #eeeeee;
   margin: 20px 120px 0 120px;
@@ -27,7 +28,8 @@
   color: #ffffff;
   border-radius: 10px;
   height: 60px;
-  margin: 40px 120px 20px 120px;
+  width: 100%;
+  margin-top: 40px;
   padding-left: 30px;
   padding-right: 30px; 
 }

@@ -129,7 +129,7 @@
 }
 
 .card {
-  border-top: none;
+  border: none;
 }
 
 .card-body {
@@ -141,6 +141,7 @@
 .post-body {
   font-size: 0.75em;
   padding: 5px 30px 50px 30px;
+  background-color:  #fafafa;
 }
 
 .search-form {
@@ -183,8 +184,8 @@
 }
 
 .sidebtn {
-  border: 1px solid #ffffff;
-  background-color: #ffffff;
+  border: none;
+  background-color:  #fafafa;
   text-decoration: none;
   position: absolute;
   right: 16px;
