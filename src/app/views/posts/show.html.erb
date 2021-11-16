@@ -39,8 +39,8 @@ function initMap() {
 <div class="col-10 col-md-offset-1 mx-auto postShow-wrap">
   <div class="row post-wrap">
     <div class="col-md-9 col-sm-9 col-xs-7 mx-auto">
-      <div class="card-left">
-        <%= image_tag @post.photos.first.image.url(:medium),class: "card-img-top", alt: "no image" if @post.photos.present? %>
+      <div class="card-left mx-auto">
+        <%= image_tag @post.photos.first.image.url,class: "card-img-top", alt: "no image" if @post.photos.present? %>
       </div>
     </div>
     <div class="card-show col-md-9 col-sm-9 col-xs-7 mx-auto mt-3">

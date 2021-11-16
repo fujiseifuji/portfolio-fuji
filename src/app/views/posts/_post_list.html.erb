@@ -19,7 +19,7 @@
           <% end %>
         </div>
         <%= link_to(post_path(post)) do %>
-          <%= image_tag post.photos.first.image.url(:small), class: "post-image" if post.photos.present? %>
+          <%= image_tag post.photos.first.image.url, class: "post-image" if post.photos.present? %>
         <% end %>
         <div class="card-body">
           <%= link_to(post_path(post)) do %>
