@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Posts", type: :system do
-
   describe "GET /index" do
-    pending "add some examples (or delete) #{__FILE__}"
+    it "商品名が正しく表示される" do
+    end
   end
 end

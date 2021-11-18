@@ -308,7 +308,7 @@ PLATFORMS
 DEPENDENCIES
   awesome_nested_set
   byebug
-  capybara (>= 3.26)
+  capybara
   carrierwave (~> 2.0)
   devise
   dotenv-rails

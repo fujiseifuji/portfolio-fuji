@@ -17,9 +17,9 @@ module App
 
     config.generators do |g|
       g.test_framework :rspec,
-      view_specs: false,
-      helper_specs: false,
-      routing_specs: false
+                       view_specs: false,
+                       helper_specs: false,
+                       routing_specs: false
     end
     # Configuration for the application, engines, and railties goes here.
     #
