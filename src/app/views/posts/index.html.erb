@@ -9,8 +9,8 @@
     </div>
     <div class="col-xl-11 col-lg-11 col-md-12 recent-postsform">
       <%= f.search_field :user_name_or_map_address_or_caption_cont, class: "form-control", placeholder: "投稿を検索" %>
-      <%= f.button type: "submit", class: "search-button" do %>
-        <i class='fas fa-search'></i>
+      <%= f.button type: "submit", value: "投稿を検索", class: "search-button", id: 'search-button' do %>
+        <i class='fas fa-search' ></i>
       <% end %>
     </div>
     <% if @posts.count == 0 %>
