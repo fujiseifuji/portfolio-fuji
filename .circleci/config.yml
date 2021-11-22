@@ -56,6 +56,9 @@ jobs:
           name: Database setup
           command: bundle exec rails db:migrate
       - run:
+          name: webpacker:install
+          command: bundle exec rails webpacker:install
+      - run:
           name: webpacker:compile
           command: bundle exec rails webpacker:compile
       - run:
