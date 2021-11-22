@@ -6,18 +6,12 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.7
+      - image: circleci/ruby:2.7-node
     working_directory: ~/portfolio-fuji/src
     steps:
       - checkout:
           path: ~/portfolio-fuji
       - ruby/install-deps
-      - run:
-          name: yarn Install
-          command: yarn install
-      - run:
-          name: Webpack setup
-          command: bundle exec bin/webpack
 
   rubocop:
     working_directory: ~/portfolio-fuji/src
@@ -42,7 +36,7 @@ jobs:
 
   rspec:
     docker:
-      - image: circleci/ruby:2.7
+      - image: circleci/ruby:2.7-node
       - image: circleci/mysql:5.5
         environment:
           MYSQL_ROOT_PASSWORD: password
@@ -61,6 +55,12 @@ jobs:
       - run:
           name: Database setup
           command: bundle exec rails db:migrate
+      - run:
+          name: yarn Install
+          command: yarn install
+      - run:
+          name: Webpack setup
+          command: bundle exec bin/webpack
       - run:
           name: Run rspec
           command: bundle exec rspec
