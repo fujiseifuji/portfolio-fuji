@@ -56,15 +56,6 @@ jobs:
           name: Database setup
           command: bundle exec rails db:migrate
       - run:
-          name: yarn:add
-          command: yarn add node-sass
-      - run:
-          name: yarn:install
-          command: yarn install
-      - run:
-          name: webpacker:compile
-          command: bundle exec rails webpacker:compile
-      - run:
           name: Run rspec
           command: bundle exec rspec
 
