@@ -1,18 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe "Posts", type: :system do
-
   describe "Post CRUD" do
     let!(:user)  { create(:user) }
     let!(:post)  { create(:post) }
     let!(:map)   { create(:map) }
     let!(:photo) { create(:photo) }
-    
+
     before do
-     visit new_user_registration_path
-     sign_in_as(user)
+      visit new_user_registration_path
+      sign_in_as(user)
     end
-    
+
     describe '投稿一覧ページのテスト' do
       describe '投稿のテスト' do
         it '投稿に成功する' do
@@ -49,7 +48,7 @@ RSpec.describe "Posts", type: :system do
           end
           it '投稿編集が失敗' do
             click_on 'edit-post-icon'
-            fill_in 'post[map_attributes][address]', with:  nil
+            fill_in 'post[map_attributes][address]', with: nil
             fill_in 'post[caption]', with: '東京駅があります。'
             attach_file 'post[photos_attributes][0][image]', Rails.root.join("spec/fixtures/test.png")
             click_on '編集する'
