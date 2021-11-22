@@ -55,6 +55,7 @@ jobs:
       - run:
           name: Database setup
           command: bundle exec rails db:migrate
+          command: bundle exec bin/webpack
       - run:
           name: Run rspec
           command: bundle exec rspec
