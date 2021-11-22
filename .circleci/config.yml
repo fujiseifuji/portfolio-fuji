@@ -57,7 +57,7 @@ jobs:
           command: bundle exec rails db:migrate
       - run:
           name: yarn:install
-          command: bundle exec rails yarn install
+          command: yarn install
       - run:
           name: webpacker:compile
           command: bundle exec rails webpacker:compile
