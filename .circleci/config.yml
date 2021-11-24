@@ -12,12 +12,6 @@ jobs:
       - checkout:
           path: ~/portfolio-fuji
       - ruby/install-deps
-      - run:
-          name: yarn install
-          command: yarn install
-      - run:
-          name: webpack install
-          command: bundle exec bin/webpack
 
   rubocop:
     working_directory: ~/portfolio-fuji/src
