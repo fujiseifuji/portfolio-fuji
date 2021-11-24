@@ -136,6 +136,7 @@
   font-size: 0.75em;
   padding-top: 5px;
   position: relative;
+  border-bottom: 2px solid #fafafa;
 }
 
 .post-body {
@@ -204,6 +205,8 @@
 .post-image {
   margin-left: 16px;
   border-radius: 10px;
+  width: 120px;
+  height: 120px;
 }
 
 .show-address {

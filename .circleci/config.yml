@@ -6,7 +6,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.7
+      - image: cimg/ruby:2.7-browsers
     working_directory: ~/portfolio-fuji/src
     steps:
       - checkout:
@@ -16,7 +16,7 @@ jobs:
   rubocop:
     working_directory: ~/portfolio-fuji/src
     docker:
-      - image: circleci/ruby:2.7
+      - image: cimg/ruby:2.7-browsers
     steps:
       - checkout:
           path: ~/portfolio-fuji
@@ -36,7 +36,7 @@ jobs:
 
   rspec:
     docker:
-      - image: circleci/ruby:2.7
+      - image: cimg/ruby:2.7-browsers
       - image: circleci/mysql:5.5
         environment:
           MYSQL_ROOT_PASSWORD: password
@@ -47,6 +47,7 @@ jobs:
       BUNDLE_RETRY: "3"
       APP_DATABASE_HOST: "127.0.0.1"
       RAILS_ENV: test
+      NODE_ENV: test
     working_directory: ~/portfolio-fuji/src
     steps:
       - checkout:
@@ -56,12 +57,16 @@ jobs:
           name: Database setup
           command: bundle exec rails db:migrate
       - run:
+          name: yarn Install
+          command: yarn install
+      - run: bundle exec bin/webpack
+      - run:
           name: Run rspec
           command: bundle exec rspec
 
   deploy:
     docker:
-      - image: circleci/ruby:2.7
+      - image: cimg/ruby:2.7-browsers
     steps:
       - checkout
       - setup_remote_docker:

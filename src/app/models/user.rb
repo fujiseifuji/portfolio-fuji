@@ -11,7 +11,6 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :profile_photo, presence: true
-
   mount_uploader :profile_photo, ImageUploader
 
   def liked_by?(post_id)
