@@ -12,7 +12,7 @@ jobs:
       - checkout:
           path: ~/portfolio-fuji
       - ruby/install-deps
-      - run: bundle exec bin/webpack
+      - run: bundle exec rails webpacker:compile
 
   rubocop:
     working_directory: ~/portfolio-fuji/src
