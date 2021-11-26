@@ -232,8 +232,10 @@
   align-items: center;
 }
 
-.required::after {
-  content: " *";
-  color: red;
-  vertical-align: middle;
+.label-required {
+  background-color: #de4d4d;
+  color: #ffffff;
+  border-radius: 2px;
+  padding: 2.5px;
+  font-size: 0.75em;
 }
