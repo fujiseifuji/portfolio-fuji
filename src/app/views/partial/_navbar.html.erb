@@ -9,12 +9,12 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="background-color: #ffbf1f;">
           <li><%= link_to "Home", root_path, class: "nav-item" %></li>
+          <li><%= link_to "「ストバスぽっと」とは？", pages_about_path, class: "nav-item" %></li>
           <% if user_signed_in? %>
             <li><%= link_to "設定", edit_user_registration_path, class: "nav-item" %></li>
             <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-item" %></li>
             <li><%= link_to "マイページ", user_path(current_user), class: "nav-item" %></li>
           <% else %>
-            <li><%= link_to "ストバスぽっと とは？", pages_about_path, class: "nav-item" %></li>
             <li><%= link_to "ログイン", user_session_path, class: "nav-item" %></li>
             <li><%= link_to "新規登録", new_user_registration_path, class: "nav-item" %></li>
           <% end %>

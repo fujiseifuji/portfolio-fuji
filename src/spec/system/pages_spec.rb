@@ -12,7 +12,7 @@ RSpec.describe "Pages", type: :system do
     describe "Pagesのテスト" do
       context "aboutページのテスト" do
         it "アクセスに成功" do
-          click_link "ストバスぽっと とは？"
+          click_link "「ストバスぽっと」とは？"
           expect(current_path).to eq pages_about_path
         end
       end
