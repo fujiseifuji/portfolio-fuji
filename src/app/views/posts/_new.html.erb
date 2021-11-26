@@ -6,7 +6,7 @@
           <div class="form-group">
             <label>レビュー場所（Google Mapで検索)</label>
             <div class="search-form">
-              <input id="address" class="form-control" type="textbox" placeholder="スポットを入力">
+              <input id="address" class="form-control" type="textbox" placeholder="公園名や地名、住所を入力してください">
               <button type="button" class="search-button" value="検索" onclick="codeAddress()">
               <i class="fas fa-search"></i>
               </button>
@@ -16,8 +16,9 @@
           <div class="form-group">
             <%= f.label :address, "住所" %>
             <div>
+            <label:outputText styleClass="required" value="住所" />
               <%= f.fields_for :map, @post.build_map do |m| %>
-                <%= m.text_field :address, class: "form-control", placeholder: "住所", name: "post[map_attributes][address]", id: "hidden_address" %>
+                <%= m.text_field :address, class: "form-control", placeholder: "住所を入力してください", name: "post[map_attributes][address]", id: "hidden_address" %>
                 <%= m.hidden_field :latitude %>
                 <%= m.hidden_field :longitude %>
               <% end %>
@@ -26,7 +27,7 @@
             <div class="col-auto pr-0"></div>
             <%= f.label :caption, "テキスト" %>
             <div>
-              <%= f.text_field :caption, class: "form-control", placeholder: "コメントを入力する" %>
+              <%= f.text_field :caption, class: "form-control", placeholder: "コメントを入力してください" %>
             </div>
           </div>
           <div class="mb-3">

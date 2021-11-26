@@ -231,3 +231,9 @@
   display: flex;
   align-items: center;
 }
+
+.required::after {
+  content: " *";
+  color: red;
+  vertical-align: middle;
+}
