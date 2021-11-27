@@ -13,6 +13,14 @@ class User < ApplicationRecord
   validates :profile_photo, presence: true
   mount_uploader :profile_photo, ImageUploader
 
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "ゲストユーザー"
+      user.profile_photo = Rack::Test::UploadedFile.new(Rails.root.join('app/assets/images/guest.png'), 'image/png')
+    end
+  end
+
   def liked_by?(post_id)
     likes.where(post_id: post_id).exists?
   end

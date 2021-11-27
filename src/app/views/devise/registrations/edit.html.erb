@@ -31,7 +31,7 @@
         <% end %>
         <% if user_signed_in? && @user == current_user %>
           <div class="mt-3" style="text-align:center;">
-            <%= link_to "アカウントを削除する",user_path(current_user.id), class: "destroy-user", method: :delete, "data-confirm" => "本当に退会しますか？" %>
+            <%= link_to "アカウントを削除する", registration_path(resource_name), class: "destroy-user", method: :delete, "data-confirm" => "本当に退会しますか？" %>
           </div>
         <% end %>
       </div>
