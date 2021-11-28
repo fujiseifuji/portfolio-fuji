@@ -8,10 +8,11 @@
   **URL:https://portfolio-fuji.herokuapp.com/**
 ## デモ
 #### 地名による地図検索・投稿機能
-![demo](https://user-images.githubusercontent.com/73183707/143766748-c3b12eb9-e323-43b5-a8b9-1200082a5df6.gif)
-
+![demo3](https://user-images.githubusercontent.com/73183707/143769830-51cdc438-63d2-4e42-804a-263db2ff0bc9.gif)
 #### 地図クリックによる座標取得
+![demo2](https://user-images.githubusercontent.com/73183707/143769835-cb635bf0-c2f7-4595-a9b9-db6702405ae5.gif)
 #### Ransackを利用した投稿検索機能
+![demo4](https://user-images.githubusercontent.com/73183707/143769834-a40bb07a-8b9c-4b6e-832a-9f0c560db1e6.gif)
 ## **使用技術**
 - 開発環境
   - MacOS
@@ -65,7 +66,8 @@
   - システムスペック
 ## DB設計
 ### ER図
-![](src/app/javascript/images/er.png)
+![er](https://user-images.githubusercontent.com/73183707/143767493-17a72f5c-3d8c-4ea7-a444-02f0ee1bfe17.png)
+
 ### テーブル
 | **テーブル** | **説明** |
 | :---     | :---         |
