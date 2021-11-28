@@ -1,0 +1,13 @@
+<% provide(:title) %>
+<%= render 'partial/map' %>
+<div class="row">
+  <div class="top col-xl-10 mt-5 mx-auto">
+    <h2>『ストバスぽっと』</h2>
+    <p>マップにある緑色のマーカーは、バスケットボールのゴールがあるスポットです！</p>
+    <p>詳細を確認するには、ログインが必要です。</p>
+    <p>さあ、今すぐ「ストバスぽっと」に登録し、投稿を確認しましょう！</p>
+    <div class="mt-3">
+      <%= link_to "今すぐ登録する！", new_user_registration_path, class: "top-button btn-primary" %>
+    </div>
+  </div>
+</div>

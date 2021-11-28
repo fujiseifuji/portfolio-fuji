@@ -1,0 +1,33 @@
+.top {
+  text-align: center;
+  background-image: url("../images/basket.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right;
+  height: 300px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+.top h2 {
+  margin-bottom: 30px;
+ }
+
+.top p {
+ font-size: 1rem;
+ margin-bottom: 35px;
+}
+
+.top-button {
+  margin-bottom: 60px;
+  padding: 12px;
+  background: #00B4CC;
+  border: 1px solid #00B4CC;
+  font-size: 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  &:hover {
+    background: #00B4CC;
+    border: 1px solid #00B4CC;
+  }
+}

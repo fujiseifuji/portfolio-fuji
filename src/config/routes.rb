@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
-  root 'posts#index'
+  root 'pages#top'
   get  'pages/about' => 'pages#about'
   get  'pages/terms' => 'pages#terms'
   get  'pages/policy' => 'pages#policy'

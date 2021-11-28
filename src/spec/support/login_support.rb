@@ -1,6 +1,6 @@
 module LoginSupport
   def sign_in_as(user)
-    visit root_path
+    visit posts_path
     fill_in "user[email]", with: user.email
     fill_in "user[password]", with: "foobar"
     click_button "ログインする"

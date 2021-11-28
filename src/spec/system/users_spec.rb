@@ -16,7 +16,7 @@ RSpec.describe 'User', type: :system do
             fill_in 'user[password]', with: 'foobar'
             fill_in 'user[password_confirmation]', with: 'foobar'
             click_button '登録する'
-            expect(current_path).to eq root_path
+            expect(current_path).to eq posts_path
             expect(page).to have_content 'アカウント登録が完了しました。'
           end
         end
