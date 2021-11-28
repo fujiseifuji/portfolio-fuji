@@ -16,16 +16,16 @@
 ## **使用技術**
 - 開発環境
   - MacOS
-  - Docker / docker-compose
+  - Docker 20.10.6/ docker-compose 1.29.1
 - フロントエンド
-  - jQuery 
-  - HTML / Sass / Bootstrap
+  - jQuery 3.6.0
+  - HTML / Sass / Bootstrap 5.1.1
 - バックエンド
-  - Ruby 
-  - Rails 
+  - Ruby 2.7.5
+  - Rails 6.1.4.1
 - インフラ
   - CircleCI
-  - MySQL 8.0.22
+  - MySQL 8.0.27
   - AWS (VPC, EC2, ALB, ACM, S3, RDS, Route53, EIP, IAM)
 - その他使用ツール
   - Visual Studio Code
