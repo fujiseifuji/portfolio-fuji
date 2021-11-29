@@ -76,7 +76,7 @@ RSpec.describe 'User', type: :system do
       it 'ユーザーの削除が成功' do
         visit edit_user_registration_path(user)
         click_link 'アカウントを削除する'
-        expect(page).to have_content "アカウント登録もしくはサインインしてください。"
+        expect(page).to have_content "アカウントを削除しました。またのご利用をお待ちしております。"
       end
     end
   end
