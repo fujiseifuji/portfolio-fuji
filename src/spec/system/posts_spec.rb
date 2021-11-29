@@ -21,7 +21,7 @@ RSpec.describe "Posts", type: :system do
           fill_in 'post[caption]', with: '東京駅があります。'
           attach_file 'post[photos_attributes][0][image]', Rails.root.join("spec/fixtures/test.png")
           click_button '投稿する'
-          expect(current_path).to eq root_path
+          expect(current_path).to eq posts_path
           expect(page).to have_content '投稿が保存されました'
         end
         it '投稿に失敗する' do
@@ -29,7 +29,7 @@ RSpec.describe "Posts", type: :system do
           fill_in 'post[caption]', with: '東京駅があります。'
           attach_file 'post[photos_attributes][0][image]', Rails.root.join("spec/fixtures/test.png")
           click_button '投稿する'
-          expect(current_path).to eq root_path
+          expect(current_path).to eq posts_path
           expect(page).to have_content '投稿に失敗しました'
         end
         it '投稿を削除する' do
@@ -43,7 +43,7 @@ RSpec.describe "Posts", type: :system do
             fill_in 'post[caption]', with: '東京駅があります。'
             attach_file 'post[photos_attributes][0][image]', Rails.root.join("spec/fixtures/test.png")
             click_on '編集する'
-            expect(current_path).to eq root_path
+            expect(current_path).to eq posts_path
             expect(page).to have_content '投稿が保存されました'
           end
           it '投稿編集が失敗' do

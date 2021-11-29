@@ -5,7 +5,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    redirect_to root_path
+    redirect_to posts_path
     if @post.save
       flash[:notice] = "投稿が保存されました"
     else
@@ -32,7 +32,7 @@ class PostsController < ApplicationController
     else
       flash[:alert] = "投稿の削除に失敗しました"
     end
-    redirect_to root_path
+    redirect_to posts_path
   end
 
   def edit
@@ -43,7 +43,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     if @post.update(post_params)
       flash[:notice] = "投稿が保存されました"
-      redirect_to root_path
+      redirect_to posts_path
     else
       flash[:alert] = "投稿に失敗しました"
       redirect_to edit_post_path(@post)

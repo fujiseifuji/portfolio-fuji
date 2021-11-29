@@ -5,18 +5,18 @@
   <div class="feed col-md-7 mt-3 mx-auto">
     <div class="recent-posts">
       <%= search_form_for @q do |f| %>
-        <%= f.label :user_name_or_map_address_or_caption, "最近の投稿", class: "font-large" %>
-    </div>
-    <div class="col-xl-11 col-lg-11 col-md-12 recent-postsform">
-      <%= f.search_field :user_name_or_map_address_or_caption_cont, class: "form-control", placeholder: "投稿を検索" %>
-      <%= f.button type: "submit", value: "投稿を検索", class: "search-button", id: 'search-button' do %>
-        <i class='fas fa-search' ></i>
+        <%= f.label :user_name_or_map_address_or_caption, "最近の投稿", class: "recent-posts" %>
+        <div class="col-xl-11 col-lg-11 col-md-12 recent-postsform">
+          <%= f.search_field :user_name_or_map_address_or_caption_cont, class: "form-control", placeholder: "投稿を検索" %>
+          <%= f.button type: "submit", value: "投稿を検索", class: "search-button", id: 'search-button' do %>
+            <i class='fas fa-search' ></i>
+          <% end %>
+        </div>
+        <% if @posts.count == 0 %>
+          <p>投稿が見つかりません</p>
+        <% end %>
       <% end %>
     </div>
-    <% if @posts.count == 0 %>
-      <p>投稿が見つかりません</p>
-    <% end %>
-      <% end %>
-    <%= render 'posts/post_list' %>
+  <%= render 'posts/post_list' %>
   </div>
 </div>

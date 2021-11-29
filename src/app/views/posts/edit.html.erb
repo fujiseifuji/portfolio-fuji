@@ -116,9 +116,10 @@ function codeAddress(){
           <%= form_with model: @post, class: "upload-images p-0 border-0" do |f| %>
             <div class="form-group">
               <%= f.label :address, "住所" %>
+              <span class="label-required">必須</span>
               <div>
                 <%= f.fields_for :map, @post.build_map do |m| %>
-                  <%= m.text_field :address, class: "form-control", placeholder: "住所", name: "post[map_attributes][address]", id: "hidden_address" %>
+                  <%= m.text_field :address, class: "form-control", placeholder: "住所", name: "post[map_attributes][address]", id: "hidden_address", autofocus: true, required: true %>
                 <% end %>
               </div>
             <div class="form-group mb-3">

@@ -10,7 +10,7 @@ RSpec.describe "Posts", type: :request do
     before do
       get new_user_registration_path
       sign_in user
-      get root_path
+      get posts_path
     end
 
     it "投稿一覧ページが開く" do
