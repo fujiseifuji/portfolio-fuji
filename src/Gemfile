@@ -32,6 +32,7 @@ gem "aws-sdk-s3", require: false
 gem 'carrierwave', '~> 2.0'
 gem 'devise'
 gem "dotenv-rails"
+gem 'fog-aws'
 gem "geocoder"
 gem "gmaps4rails"
 gem "gon"
