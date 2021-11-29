@@ -65,6 +65,22 @@ GEM
     ast (2.4.2)
     awesome_nested_set (3.4.0)
       activerecord (>= 4.0.0, < 7.0)
+    aws-eventstream (1.2.0)
+    aws-partitions (1.534.0)
+    aws-sdk-core (3.123.0)
+      aws-eventstream (~> 1, >= 1.0.2)
+      aws-partitions (~> 1, >= 1.525.0)
+      aws-sigv4 (~> 1.1)
+      jmespath (~> 1.0)
+    aws-sdk-kms (1.51.0)
+      aws-sdk-core (~> 3, >= 3.122.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.107.0)
+      aws-sdk-core (~> 3, >= 3.122.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.4)
+    aws-sigv4 (1.4.0)
+      aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.16)
     bindex (0.8.1)
     builder (3.2.4)
@@ -123,6 +139,7 @@ GEM
       ruby-vips (>= 2.0.17, < 3)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
+    jmespath (1.4.0)
     launchy (2.5.0)
       addressable (~> 2.7)
     listen (3.7.0)
@@ -307,6 +324,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_nested_set
+  aws-sdk-s3
   byebug
   capybara
   carrierwave (~> 2.0)

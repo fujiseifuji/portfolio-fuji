@@ -27,7 +27,8 @@
 - インフラ
   - CircleCI
   - MySQL 8.0.27
-  - AWS (VPC, EC2, ALB, ACM, S3, RDS, Route53, EIP, IAM)
+  - AWS (S3)
+  - Heroku
 - その他使用ツール
   - Visual Studio Code
   - draw.io
